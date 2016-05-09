@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Board } from '../board/board';
 import { BoardService } from '../board/board.service';
 import { CellComponent } from '../cell/cell.component';
@@ -11,12 +11,15 @@ import { CellComponent } from '../cell/cell.component';
   styleUrls: ['app/board/board.component.css']
 })
 
-export class BoardComponent {
+export class BoardComponent implements OnInit {
   constructor(private boardService: BoardService) { }
-
-  board: Board = {
-    throws: this.boardService.generateCells(10)
+  board: Board;
+  ngOnInit() {
+    this.board = {throws:this.boardService.generateCells(10)};
+    this.boardService.placeShip(this.board.throws, 5);
   }
+
+
 
   shoot(cell) {
     if (!cell.hasShip) {

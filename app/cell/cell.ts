@@ -1,9 +1,9 @@
 export class Cell {
   status: StatusType;
-  hasShip: Boolean;
+  hasShip: boolean;
   coordinates: {
     x: XCoordinatesType
-    y: Number
+    y: number
   };
 }
 
