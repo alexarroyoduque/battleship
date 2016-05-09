@@ -11,15 +11,15 @@ import { TwoPlayersComponent } from './modes/two-players/two-players.component';
   providers: [ROUTER_PROVIDERS],
   template: `
     <h1>battleship!!!</h1>
-    <bs-menu></bs-menu>
     <h2>Aquí veremos la vista</h2>
     <router-outlet></router-outlet>
-    `
+  `
 })
 
 @RouteConfig([
-  {path: '/two-players', name: 'TwoPlayers', component: TwoPlayersComponent},
-  {path: '/one-player', name: 'OnePlayer', component: OnePlayerComponent}
+  {path: '/menu', name: 'Menu', component: MenuComponent, useAsDefault: true},
+  {path: '/one-player', name: 'OnePlayer', component: OnePlayerComponent},
+  {path: '/two-players', name: 'TwoPlayers', component: TwoPlayersComponent}
 ])
 
 export class AppComponent {
