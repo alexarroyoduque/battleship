@@ -16,10 +16,11 @@ export class BoardComponent implements OnInit {
   board: Board;
   ngOnInit() {
     this.board = {throws:this.boardService.generateCells(10)};
+    this.boardService.placeShip(this.board.throws, 2);
+    this.boardService.placeShip(this.board.throws, 3);
+    this.boardService.placeShip(this.board.throws, 4);
     this.boardService.placeShip(this.board.throws, 5);
   }
-
-
 
   shoot(cell) {
     if (!cell.hasShip) {

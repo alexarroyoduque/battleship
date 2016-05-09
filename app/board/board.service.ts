@@ -29,19 +29,39 @@ export class BoardService {
     const ORIENTATIONS = ['horizontal', 'vertical'];
     let orientation:string = ORIENTATIONS[getRandomInt(0, 1)],
         x: number,
-        y: number;
+        y: number,
+        cellHasPreviousShip: boolean = false;
 
     x = getRandomInt(0, this.getBoardSize() - shipSize);
     y = getRandomInt(0, this.getBoardSize()- shipSize);
 
     if (orientation === 'horizontal') {
       for(let i = 0; i < shipSize; i++) {
-        throws[x + i][y].hasShip = true;
+        if (throws[x + i][y].hasShip) {
+          cellHasPreviousShip = true;
+        }
       }
     } else {
       for(let i = 0; i < shipSize; i++) {
-        throws[x][y + i].hasShip = true;
+        if (throws[x][y + i].hasShip) {
+          cellHasPreviousShip = true;
+        }
       }
+    }
+
+    if (!cellHasPreviousShip) {
+      if (orientation === 'horizontal') {
+        for(let i = 0; i < shipSize; i++) {
+          throws[x + i][y].hasShip = true;
+        }
+      } else {
+        for(let i = 0; i < shipSize; i++) {
+          throws[x][y + i].hasShip = true;
+        }
+      }
+    } else {
+      console.log('coincidencia')
+      this.placeShip(throws, shipSize);
     }
   }
 }
