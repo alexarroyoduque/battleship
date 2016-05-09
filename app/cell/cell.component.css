@@ -7,3 +7,15 @@
   height: 40px;
   width: 40px;
 }
+
+.empty {
+  background-color: #546E7A;
+}
+
+.water {
+  background-color: #42A5F5;
+}
+
+.hit {
+  background-color: #FF5722;
+}

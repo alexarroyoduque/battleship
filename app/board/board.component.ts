@@ -19,6 +19,10 @@ export class BoardComponent {
   }
 
   shoot(cell) {
-    console.log(cell);
+    if (!cell.hasShip) {
+      cell.status = 'water';
+    } else {
+      cell.status = 'hit';
+    }
   }
 }
