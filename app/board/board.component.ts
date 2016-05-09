@@ -1,34 +1,24 @@
 import { Component } from '@angular/core';
 import { Board } from '../board/board';
+import { BoardService } from '../board/board.service';
 import { CellComponent } from '../cell/cell.component';
 
 @Component({
   selector: 'bs-board',
   directives: [CellComponent],
-  templateUrl: 'app/board/board.component.html'
+  providers: [BoardService],
+  templateUrl: 'app/board/board.component.html',
+  styleUrls: ['app/board/board.component.css']
 })
 
 export class BoardComponent {
+  constructor(private boardService: BoardService) { }
+
   board: Board = {
-    throws: generateCells()
+    throws: this.boardService.generateCells(10)
   }
-}
 
-function generateCells() {
-  let numberOfColumns = 10,
-    board = new Array();
-
-  for(let i = 0; i < numberOfColumns; i++) {
-    board.push([]);
-    board[i].push([]);
-    for(let j = 0; j < numberOfColumns; j++) {
-      board[i][j] = {
-        status: 'empty',
-        hasShip: false,
-        coordinates: {x: String.fromCharCode(65 + i), y: j}
-      };
-    }
+  shoot(cell) {
+    console.log(cell);
   }
-  // console.log(board);
-  return board;
 }

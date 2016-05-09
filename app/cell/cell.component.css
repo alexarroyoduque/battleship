@@ -1,0 +1,9 @@
+.cell {
+  background-color: #546E7A;
+  color: white;
+  border-radius: 50%;
+  display: inline-block;
+  padding: 5px;
+  height: 40px;
+  width: 40px;
+}

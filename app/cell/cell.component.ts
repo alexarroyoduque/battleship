@@ -1,8 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Cell } from './cell';
 
 @Component({
   selector: 'bs-cell',
-  templateUrl: 'app/cell/cell.component.html'
+  templateUrl: 'app/cell/cell.component.html',
+  styleUrls: ['app/cell/cell.component.css']
 })
-export class CellComponent {}
+export class CellComponent {
+  @Input()
+  cell: Cell;
+}

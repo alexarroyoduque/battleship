@@ -1,9 +1,9 @@
 <p>este es el componente board</p>
 
 <div class="board">
-  <div *ngFor="let throw of board.throws;">
-    <div *ngFor="let cell of throw;">
-      <span>{{cell.coordinates.x}}, {{cell.coordinates.y}}</span>
-    </div>
+  <div class="throw" *ngFor="let throw of board.throws;">
+    <span *ngFor="let cell of throw;">
+      <bs-cell (click)="shoot(cell)" [cell]="cell"></bs-cell>
+    </span>
   </div>
 </div>
