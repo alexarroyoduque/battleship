@@ -10,7 +10,7 @@ import { TwoPlayersComponent } from './modes/two-players/two-players.component';
   directives: [ROUTER_DIRECTIVES, MenuComponent, OnePlayerComponent, TwoPlayersComponent],
   providers: [ROUTER_PROVIDERS],
   template: `
-    <h1>battleship!!!</h1>
+    <h1>bs-app!!!</h1>
     <h2>Aquí veremos la vista</h2>
     <router-outlet></router-outlet>
   `

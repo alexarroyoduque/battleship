@@ -1,3 +1,9 @@
 <p>este es el componente board</p>
 
-<bs-cell></bs-cell>
+<div class="board">
+  <div *ngFor="let throw of board.throws;">
+    <div *ngFor="let cell of throw;">
+      <span>{{cell.coordinates.x}}, {{cell.coordinates.y}}</span>
+    </div>
+  </div>
+</div>
