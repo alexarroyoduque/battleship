@@ -1,3 +1,30 @@
 .throw {
-  border: 1px solid black;
+  /*border: 1px solid black;*/
+}
+
+.board-cell {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  background-color: green;
+}
+
+.coordinates {
+  background-color: orange;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+}
+
+.coordinates.x {
+  margin: 0 0 5px 5px;
+  color: blue;
+}
+
+.coordinates.x:first-child {
+  margin-left: 25px;
+}
+
+.coordinates.y {
+  color: red;
 }

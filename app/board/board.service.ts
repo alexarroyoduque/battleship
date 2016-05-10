@@ -25,7 +25,8 @@ export class BoardService {
     return this.size;
   }
 
-  placeShip(throws, shipSize: number) {
+  placeShip(boardCells, shipSize: number) {
+    console.log(boardCells)
     const ORIENTATIONS = ['horizontal', 'vertical'];
     let orientation:string = ORIENTATIONS[getRandomInt(0, 1)],
         x: number,
@@ -37,13 +38,13 @@ export class BoardService {
 
     if (orientation === 'horizontal') {
       for(let i = 0; i < shipSize; i++) {
-        if (throws[x + i][y].hasShip) {
+        if (boardCells[x + i][y].hasShip) {
           cellHasPreviousShip = true;
         }
       }
     } else {
       for(let i = 0; i < shipSize; i++) {
-        if (throws[x][y + i].hasShip) {
+        if (boardCells[x][y + i].hasShip) {
           cellHasPreviousShip = true;
         }
       }
@@ -52,16 +53,15 @@ export class BoardService {
     if (!cellHasPreviousShip) {
       if (orientation === 'horizontal') {
         for(let i = 0; i < shipSize; i++) {
-          throws[x + i][y].hasShip = true;
+          boardCells[x + i][y].hasShip = true;
         }
       } else {
         for(let i = 0; i < shipSize; i++) {
-          throws[x][y + i].hasShip = true;
+          boardCells[x][y + i].hasShip = true;
         }
       }
     } else {
-      console.log('coincidencia')
-      this.placeShip(throws, shipSize);
+      this.placeShip(boardCells, shipSize);
     }
   }
 }

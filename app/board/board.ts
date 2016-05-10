@@ -1,5 +1,7 @@
 import { Cell } from '../cell/cell';
 
 export class Board {
-  throws: Array<Array<Cell>>;
+  size: number;
+  cells: Array<Array<Cell>>;
+
 }
