@@ -1,2 +1,6 @@
 <h1>Component one</h1>
-<bs-board></bs-board>
+<div>
+  <p>Turnos: {{turns.a}}</p>
+</div>
+<button (click)="addTurn()">Setear turnos</button>
+<bs-board [size]="10" [(turns)]="turns.a"></bs-board>

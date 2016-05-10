@@ -6,4 +6,11 @@ import { BoardComponent } from '../../board/board.component';
   directives: [BoardComponent],
   templateUrl: 'app/modes/one-player/one-player.component.html'
 })
-export class OnePlayerComponent { }
+export class OnePlayerComponent {
+  turns = {
+    a: 0
+  }
+  addTurn() {
+    this.turns.a++;
+  }
+}

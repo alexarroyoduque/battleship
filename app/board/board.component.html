@@ -1,6 +1,7 @@
 <p>este es el componente board</p>
-
+<p>{{turns}}</p>
 <div class="board">
+
   <div class="box board-cell coordinates x" *ngFor="let throw of board.cells; let i = index">
     <span>{{throw[i].coordinates.x}}</span>
   </div>

@@ -1,10 +1,12 @@
 export class Cell {
-  status: StatusType;
-  hasShip: boolean;
-  coordinates: {
-    x: XCoordinatesType
-    y: number
-  };
+  constructor(
+    status: StatusType,
+    hasShip: boolean,
+    coordinates: {
+      x: XCoordinatesType,
+      y: number
+    }
+  ) { }
 }
 
 type StatusType = 'empty' | 'water' | 'hit';

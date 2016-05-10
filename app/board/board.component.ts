@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Board } from '../board/board';
 import { BoardService } from '../board/board.service';
 import { CellComponent } from '../cell/cell.component';
 
-const BOARD_SIZE = 10;
-
 @Component({
   selector: 'bs-board',
+  inputs: ['size', 'turns'],
+  outputs: ['turns'],
   directives: [CellComponent],
   providers: [BoardService],
   templateUrl: 'app/board/board.component.html',
@@ -16,10 +16,13 @@ const BOARD_SIZE = 10;
 export class BoardComponent implements OnInit {
   constructor(private boardService: BoardService) { }
   board: Board;
+  size;
+  turns;
+
   ngOnInit() {
     this.board = {
-      size: BOARD_SIZE,
-      cells:this.boardService.generateCells(BOARD_SIZE)
+      size: this.size,
+      cells:this.boardService.generateCells(this.size)
     };
     this.boardService.placeShip(this.board.cells, 2);
     this.boardService.placeShip(this.board.cells, 3);
@@ -28,10 +31,7 @@ export class BoardComponent implements OnInit {
   }
 
   shoot(cell) {
-    if (!cell.hasShip) {
-      cell.status = 'water';
-    } else {
-      cell.status = 'hit';
-    }
+    this.turns++;
+    this.boardService.shoot(cell);
   }
 }

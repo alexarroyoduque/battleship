@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
+import { Cell } from '../cell/cell';
 
 @Injectable()
 export class BoardService {
   size: number = 10;
+
   generateCells(size) {
     this.size = size;
     let board = new Array();
@@ -11,6 +13,8 @@ export class BoardService {
       board.push([]);
       board[i].push([]);
       for(let j = 0; j < size; j++) {
+        // board[i][j] = new Cell ('empty', false, {x: String.fromCharCode(65 +  i), y: j});
+
         board[i][j] = {
           status: 'empty',
           hasShip: false,
@@ -62,6 +66,14 @@ export class BoardService {
       }
     } else {
       this.placeShip(boardCells, shipSize);
+    }
+  }
+
+  shoot(cell) {
+    if (!cell.hasShip) {
+      cell.status = 'water';
+    } else {
+      cell.status = 'hit';
     }
   }
 }
