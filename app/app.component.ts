@@ -23,5 +23,4 @@ import { TwoPlayersComponent } from './modes/two-players/two-players.component';
 ])
 
 export class AppComponent {
-
 }

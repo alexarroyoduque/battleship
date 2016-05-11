@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Cell } from '../cell/cell';
+import { ORIENTATION } from './orientation';
 
 @Injectable()
 export class BoardService {
-  size: number = 10;
+  size: number;
 
   generateCells(size) {
     this.size = size;
@@ -13,8 +14,7 @@ export class BoardService {
       board.push([]);
       board[i].push([]);
       for(let j = 0; j < size; j++) {
-        // board[i][j] = new Cell ('empty', false, {x: String.fromCharCode(65 +  i), y: j});
-
+        // board[i][j] = new Cell ('empty', false, {x: String.fromCharCode(65 + i), y: j});
         board[i][j] = {
           status: 'empty',
           hasShip: false,
@@ -30,8 +30,7 @@ export class BoardService {
   }
 
   placeShip(boardCells, shipSize: number) {
-    console.log(boardCells)
-    const ORIENTATIONS = ['horizontal', 'vertical'];
+    const ORIENTATIONS = [ORIENTATION.vertical, ORIENTATION.horizontal];
     let orientation:string = ORIENTATIONS[getRandomInt(0, 1)],
         x: number,
         y: number,
@@ -40,7 +39,7 @@ export class BoardService {
     x = getRandomInt(0, this.getBoardSize() - shipSize);
     y = getRandomInt(0, this.getBoardSize()- shipSize);
 
-    if (orientation === 'horizontal') {
+    if (orientation === ORIENTATION.horizontal) {
       for(let i = 0; i < shipSize; i++) {
         if (boardCells[x + i][y].hasShip) {
           cellHasPreviousShip = true;
@@ -55,7 +54,7 @@ export class BoardService {
     }
 
     if (!cellHasPreviousShip) {
-      if (orientation === 'horizontal') {
+      if (orientation === ORIENTATION.horizontal) {
         for(let i = 0; i < shipSize; i++) {
           boardCells[x + i][y].hasShip = true;
         }

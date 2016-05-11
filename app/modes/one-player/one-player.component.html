@@ -1,6 +1,23 @@
 <h1>Component one</h1>
-<div>
-  <p>Turnos: {{turns.a}}</p>
-</div>
-<button (click)="addTurn()">Setear turnos</button>
-<bs-board [size]="10" [(turns)]="turns.a"></bs-board>
+<p>Current phase: {{phase}}</p>
+<p>Turnos: {{turns}}</p>
+<h2>Board - one</h2>
+<p>Orientation selected: {{orientation}}</p>
+<button (click)="changeOrientation()">Change orientation</button>
+<p>Units: {{units}}</p>
+<label>
+  X:
+  <input type="text" maxlength="1" size="2" [(ngModel)]="coordinateX" name="coordinateX">
+</label>
+<label>
+  Y:
+  <input type="text" maxlength="2" size="2" [(ngModel)]="coordinateY" name="coordinateY">
+</label>
+<button (click)="addShip(coordinateX, coordinateY, orientation)">
+  Colocar en ({{coordinateX}}, {{coordinateY}})
+</button>
+
+<bs-board [size]="[[boardSize]]" [(turns)]="turns" [(phase)]="phase"></bs-board>
+<h2>Board - two</h2>
+<bs-ia></bs-ia>
+<bs-board [size]="[[boardSize]]" [(turns)]="turns" [(phase)]="phase" [isIa]="true"></bs-board>
