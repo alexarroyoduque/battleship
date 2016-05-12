@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { MissionService } from '../shared/mission.service';
 import { Board } from '../board/board';
 import { BoardService } from '../board/board.service';
 import { CellComponent } from '../cell/cell.component';
@@ -9,6 +10,7 @@ import { Subscription }   from 'rxjs/Subscription';
   selector: 'bs-board',
   inputs: ['size', 'turns', 'phase', 'isIa'],
   directives: [CellComponent],
+  providers: [BoardService],
   templateUrl: 'app/board/board.component.html',
   styleUrls: ['app/board/board.component.css']
 })
@@ -23,21 +25,18 @@ export class BoardComponent implements OnInit {
   turns;
 
   subscription:Subscription;
-  constructor(private boardService: BoardService) {
-    this.subscription = boardService.addShipAnnounced$.subscribe(
+  constructor(private boardService: BoardService, private missionService: MissionService) {
+    this.subscription = missionService.addShipAnnounced$.subscribe(
       (newShip) => {
+        if (!this.isIa) {
+          this.boardService.addPlayerShip(this.board.cells, newShip);
+        }
         console.log(`addShipAnnounced desde board`)
-        this.boardService.addPlayerShip(this.board.cells, newShip);
-        console.log(newShip.x)
-        console.log(newShip.y)
-        console.log(newShip.units)
-        console.log(newShip.orientation)
-        // console.log(this.board.cells);
     })
   }
   confirm() {
     console.log('confirm()')
-    this.boardService.confirmAddShip('barco');
+    this.missionService.confirmAddShip('barco');
   }
 
   ngOnInit() {
@@ -46,10 +45,10 @@ export class BoardComponent implements OnInit {
       cells:this.boardService.generateCells(this.size)
     };
     if (this.isIa) {
-      // this.boardService.placeShipOnRandomPosition(this.board.cells, 5);
-      // this.boardService.placeShipOnRandomPosition(this.board.cells, 5);
-      // this.boardService.placeShipOnRandomPosition(this.board.cells, 5);
-      // this.boardService.placeShipOnRandomPosition(this.board.cells, 5);
+      this.boardService.placeShipOnRandomPosition(this.board.cells, 5);
+      this.boardService.placeShipOnRandomPosition(this.board.cells, 4);
+      this.boardService.placeShipOnRandomPosition(this.board.cells, 3);
+      this.boardService.placeShipOnRandomPosition(this.board.cells, 2);
     }
   }
 
