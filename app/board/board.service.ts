@@ -86,13 +86,16 @@ export class BoardService {
   hasBoardEnoughtSize(newShip) {
     let {x, y, units, orientation} = newShip,
         boardHasEnoughtSize: boolean = false;
-    if (orientation === ORIENTATION.horizontal) {
-      if (x + units <= this.getBoardSize()) {
-        boardHasEnoughtSize = true;
-      }
-    } else {
-      if (y + units <= this.getBoardSize()) {
-        boardHasEnoughtSize = true;
+
+    if (x < this.getBoardSize() && y <= this.getBoardSize()) {
+      if (orientation === ORIENTATION.horizontal) {
+        if (x + units <= this.getBoardSize()) {
+          boardHasEnoughtSize = true;
+        }
+      } else {
+        if (y + units <= this.getBoardSize()) {
+          boardHasEnoughtSize = true;
+        }
       }
     }
 

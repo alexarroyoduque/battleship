@@ -29,6 +29,8 @@ export class BoardComponent implements OnInit {
     this.subscription = missionService.addShipAnnounced$.subscribe(
       (newShip) => {
         if (!this.isIa) {
+          console.log(newShip.x)
+          console.log(newShip.y)
           this.boardService.addPlayerShip(this.board.cells, newShip);
         }
         console.log(`addShipAnnounced desde board`)

@@ -32,14 +32,11 @@ export class OnePlayerComponent {
 
     this.missionService.announceAddShip({x: xParsed, y: yParsed, units, orientation});
   }
-  //
+
   addTurn() {
     this.turns++;
   }
 
-  // addShip(x, y, orientation) {
-  //   this.onAddShip.emit({x, y, orientation});
-  // }
   onAddShip() {
     console.log('probando');
   }
