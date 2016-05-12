@@ -5,16 +5,26 @@
 <p>Orientation selected: {{orientation}}</p>
 <button (click)="changeOrientation()">Change orientation</button>
 <p>Units: {{units}}</p>
-<button (click)="changeX()">cambia X</button>
-<form [ngFormModel]="form">
-  <label>
-    X:
-    <input type="text" maxlength="1" size="2" [ngFormControl]="form.controls.coordinateX" name="coordinateX">
-  </label>
-  <label>
-    Y:
-    <input type="text" maxlength="2" size="2" [ngFormControl]="form.controls.coordinateY" name="coordinateY">
-  </label>
+
+<form novalidate [ngFormModel]="form">
+  <div>
+    <label>
+      X:
+      <input type="text" maxlength="2" size="2" ngControl="coordinateX" name="coordinateX">
+    </label>
+    <span *ngIf="form.controls.coordinateX.errors?.required">Campo obligatorio</span>
+    <span *ngIf="form.controls.coordinateX.errors?.pattern">Solo letras</span>
+  </div>
+
+  <div>
+    <label>
+      Y:
+      <input type="number" maxlength="2" size="2" ngControl="coordinateY" name="coordinateY">
+    </label>
+    <span *ngIf="form.controls.coordinateY.errors?.required">Campo obligatorio</span>
+    <span *ngIf="form.controls.coordinateY.errors?.pattern">Solo letras</span>
+  </div>
+
   <button (click)="announce(form.value.coordinateX, form.value.coordinateY, units, orientation)">
     Colocar en ({{form.value.coordinateX}}, {{form.value.coordinateY}})
   </button>
