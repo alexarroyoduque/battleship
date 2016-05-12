@@ -1,3 +1,6 @@
-<span class="cell" [class.water]='cell.status === "water"' [class.hit]='cell.status === "hit"'>
+<span class="cell"
+  [class.hasShip]='cell.hasShip'
+  [class.water]='cell.status === "water"'
+  [class.hit]='cell.status === "hit"'>
   <!-- {{cell.coordinates.x}}, {{cell.coordinates.y}} -->
 </span>

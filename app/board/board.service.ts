@@ -1,10 +1,26 @@
 import { Injectable } from '@angular/core';
+import { Subject }    from 'rxjs/Subject';
 import { Cell } from '../cell/cell';
 import { ORIENTATION } from './orientation';
 
 @Injectable()
 export class BoardService {
   size: number;
+
+  //https://angular.io/docs/ts/latest/cookbook/component-communication.html#!#bidirectional-service
+  // Observable string sources
+  private addShipAnnouncedSource = new Subject<any>();
+  private addShipConfirmedSource = new Subject<string>();
+  // Observable string streams
+  addShipAnnounced$ = this.addShipAnnouncedSource.asObservable();
+  addShipConfirmed$ = this.addShipConfirmedSource.asObservable();
+  // Service message commands
+  announceAddShip(newShip) {
+    this.addShipAnnouncedSource.next(newShip)
+  }
+  confirmAddShip(ship: string) {
+    this.addShipConfirmedSource.next(ship);
+  }
 
   generateCells(size) {
     this.size = size;
@@ -29,44 +45,95 @@ export class BoardService {
     return this.size;
   }
 
-  placeShip(boardCells, shipSize: number) {
-    const ORIENTATIONS = [ORIENTATION.vertical, ORIENTATION.horizontal];
-    let orientation:string = ORIENTATIONS[getRandomInt(0, 1)],
-        x: number,
-        y: number,
-        cellHasPreviousShip: boolean = false;
-
-    x = getRandomInt(0, this.getBoardSize() - shipSize);
-    y = getRandomInt(0, this.getBoardSize()- shipSize);
+  checkIfAnyCellsHasShip(boardCells, newShip): boolean {
+    let cellHasPreviousShip: boolean = false,
+        {x, y, units, orientation} = newShip;
 
     if (orientation === ORIENTATION.horizontal) {
-      for(let i = 0; i < shipSize; i++) {
-        if (boardCells[x + i][y].hasShip) {
+      for(let i = 0; i < units; i++) {
+        if (boardCells[y][x + i].hasShip) {
           cellHasPreviousShip = true;
         }
       }
     } else {
-      for(let i = 0; i < shipSize; i++) {
-        if (boardCells[x][y + i].hasShip) {
+      for(let i = 0; i < units; i++) {
+        if (boardCells[y + i][x].hasShip) {
           cellHasPreviousShip = true;
         }
       }
     }
 
-    if (!cellHasPreviousShip) {
-      if (orientation === ORIENTATION.horizontal) {
-        for(let i = 0; i < shipSize; i++) {
-          boardCells[x + i][y].hasShip = true;
-        }
-      } else {
-        for(let i = 0; i < shipSize; i++) {
-          boardCells[x][y + i].hasShip = true;
-        }
+    return cellHasPreviousShip;
+  }
+
+
+  insertShipOnBoard(boardCells, newShip): void {
+    let {x, y, units, orientation} = newShip;
+
+    if (orientation === ORIENTATION.horizontal) {
+      for(let i = 0; i < units; i++) {
+        boardCells[y][x + i].hasShip = true;
       }
     } else {
-      this.placeShip(boardCells, shipSize);
+      for(let i = 0; i < units; i++) {
+        boardCells[y + i][x].hasShip = true;
+      }
     }
   }
+
+  placeShipOnRandomPosition(boardCells, units: number) {
+    const ORIENTATIONS = [ORIENTATION.vertical, ORIENTATION.horizontal];
+    let orientation:string = ORIENTATIONS[getRandomInt(0, 1)],
+        x: number = getRandomInt(0, this.getBoardSize() - units),
+        y: number = getRandomInt(0, this.getBoardSize()- units),
+        anyCellHasPreviousShip: boolean = false,
+        newShip = {x, y, orientation, units};
+
+    anyCellHasPreviousShip = this.checkIfAnyCellsHasShip(boardCells, newShip);
+
+    if (!anyCellHasPreviousShip) {
+      this.insertShipOnBoard(boardCells, newShip);
+    } else {
+      this.placeShipOnRandomPosition(boardCells, units);
+    }
+  }
+
+  hasBoardEnoughtSize(newShip) {
+    let {x, y, units, orientation} = newShip,
+        boardHasEnoughtSize: boolean = false;
+    if (orientation === ORIENTATION.horizontal) {
+      if (x + units <= this.getBoardSize()) {
+        boardHasEnoughtSize = true;
+      }
+    } else {
+      if (y + units <= this.getBoardSize()) {
+        boardHasEnoughtSize = true;
+      }
+    }
+
+    return boardHasEnoughtSize;
+  }
+
+  addPlayerShip(boardCells, newShip) {
+    let {x, y, units, orientation} = newShip,
+        boardHasEnoughtSize: boolean = this.hasBoardEnoughtSize(newShip),
+        anyCellHasPreviousShip: boolean = false;
+
+    if (boardHasEnoughtSize) {
+      anyCellHasPreviousShip = this.checkIfAnyCellsHasShip(boardCells, newShip);
+    }
+
+    if (!anyCellHasPreviousShip && boardHasEnoughtSize) {
+      this.insertShipOnBoard(boardCells, newShip);
+    } else {
+      if(anyCellHasPreviousShip) {
+        console.log('Ya hay un barco en estas celdas');
+      } else {
+        console.log('Espacio insuficiente');
+      }
+    }
+  }
+
 
   shoot(cell) {
     if (!cell.hasShip) {

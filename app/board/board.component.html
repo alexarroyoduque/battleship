@@ -1,4 +1,7 @@
 <!-- <p>{{turns}}</p> -->
+
+<button (click)="confirm()"> Confirmar desde board</button>
+
 <div class="board">
   <div class="box board-cell coordinates x" *ngFor="let throw of board.cells; let i = index">
     <span>{{throw[i].coordinates.x}}</span>
