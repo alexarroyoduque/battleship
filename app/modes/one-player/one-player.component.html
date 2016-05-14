@@ -4,7 +4,7 @@
 <h2>Board - one</h2>
 <p>Orientation selected: {{orientation}}</p>
 <button (click)="changeOrientation()">Change orientation</button>
-<p>Units: {{units}}</p>
+<p>Units: {{shipToPlace[0]}}</p>
 
 <form novalidate [ngFormModel]="coordinatesForm">
   <div>
@@ -25,7 +25,7 @@
     <span *ngIf="coordinatesForm.controls.coordinateY.errors?.validateMaxInteger">Solo números [0-{{boardSize}}]</span>
   </div>
 
-  <button [disabled]="!coordinatesForm.valid" (click)="announce(coordinatesForm.value.coordinateX, coordinatesForm.value.coordinateY, units, orientation)">
+  <button [disabled]="!coordinatesForm.valid" (click)="announce(coordinatesForm.value.coordinateX, coordinatesForm.value.coordinateY, shipToPlace[0], orientation)">
     Colocar en ({{coordinatesForm.value.coordinateX}}, {{coordinatesForm.value.coordinateY}})
   </button>
 </form>

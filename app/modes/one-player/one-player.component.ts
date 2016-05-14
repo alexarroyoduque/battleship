@@ -21,7 +21,7 @@ export class OnePlayerComponent implements OnInit {
   turns: number = 0;
   orientation: string = ORIENTATION.vertical;
   phase: string = PHASE.main;
-  units: number = 5;
+  shipToPlace: Array<number> = [5, 4, 3, 2];
   //
   constructor(private missionService: MissionService, private formBuilder: FormBuilder) {
     missionService.addShipConfirmed$.subscribe(
