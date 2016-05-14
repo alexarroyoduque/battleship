@@ -1,8 +1,8 @@
 import { Component, Output, EventEmitter, OnInit, SimpleChange } from '@angular/core';
-import { FORM_DIRECTIVES, FORM_BINDINGS, ControlGroup, FormBuilder, Validators } from '@angular/common';
+import { FORM_DIRECTIVES, FORM_BINDINGS, ControlGroup, FormBuilder, Validators, Control } from '@angular/common';
+
 import { MissionService } from '../../shared/mission.service';
 import { BoardComponent } from '../../board/board.component';
-
 import { IaComponent } from '../../ia/ia.component';
 import { ORIENTATION } from '../../board/orientation';
 import { PHASE } from '../phase';
@@ -16,7 +16,8 @@ import { PHASE } from '../phase';
 })
 export class OnePlayerComponent implements OnInit {
   boardSize: number = 10;
-  form: ControlGroup;
+  upperCaseMax: string;
+  coordinatesForm: ControlGroup;
   turns: number = 0;
   orientation: string = ORIENTATION.vertical;
   phase: string = PHASE.main;
@@ -29,14 +30,34 @@ export class OnePlayerComponent implements OnInit {
       })
   }
 
+
+  generateXCoordinatesPattern (range: number) {
+    let initPattern = '^[aA-',
+        endPattern = ']{1}$',
+        xCoordinatesPattern,
+        lowCaseMax,
+        upperCaseMax;
+
+    lowCaseMax = String.fromCharCode('a'.charCodeAt(0) + range - 1);
+    upperCaseMax = String.fromCharCode('A'.charCodeAt(0) + range - 1);
+
+    this.upperCaseMax = upperCaseMax;
+
+    xCoordinatesPattern = `${initPattern}${lowCaseMax}${upperCaseMax}${endPattern}`
+
+    return xCoordinatesPattern;
+  }
+
   ngOnInit() {
-    this.form = this.formBuilder.group({
-      coordinateX: ['', Validators.compose([Validators.required, Validators.pattern('^[aA-zZ]{1}$')])],
-      coordinateY: ['', Validators.compose([Validators.required, Validators.pattern('^\\d{1,2}$')])]
+    let xCoordinatesPattern = this.generateXCoordinatesPattern(this.boardSize);
+
+    this.coordinatesForm = this.formBuilder.group({
+      coordinateX: ['', Validators.compose([Validators.required, Validators.pattern(xCoordinatesPattern)])],
+      coordinateY: ['', Validators.compose([Validators.required, Validators.pattern('^\\d{1,2}$'), validateMaxInteger])]
     });
 
-    this.form.valueChanges.subscribe(data => {
-      console.log(this.form)
+    this.coordinatesForm.valueChanges.subscribe(data => {
+      console.log(this.coordinatesForm)
       data.coordinateX = data.coordinateX.toUpperCase();
     });
   }
@@ -47,10 +68,6 @@ export class OnePlayerComponent implements OnInit {
         yParsed = parseInt(y);
 
     this.missionService.announceAddShip({x: xParsed, y: yParsed, units, orientation});
-  }
-
-  changeX() {
-    console.log(this.form);
   }
 
   addTurn() {
@@ -68,4 +85,23 @@ export class OnePlayerComponent implements OnInit {
       this.orientation = ORIENTATION.vertical;
     }
   }
+}
+
+function validateMaxInteger(c: Control) {
+
+  function checkRange(anyInteger, max) {
+    let isValid: boolean = false;
+
+    if (anyInteger <= max) {
+        isValid = true;
+    }
+
+    return isValid;
+  }
+
+  return checkRange(c.value, 10) ? null : {
+    validateMaxInteger: {
+      valid: false
+    }
+  };
 }

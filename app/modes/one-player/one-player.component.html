@@ -6,14 +6,14 @@
 <button (click)="changeOrientation()">Change orientation</button>
 <p>Units: {{units}}</p>
 
-<form novalidate [ngFormModel]="form">
+<form novalidate [ngFormModel]="coordinatesForm">
   <div>
     <label>
       X:
-      <input type="text" maxlength="2" size="2" ngControl="coordinateX" name="coordinateX">
+      <input type="text" maxlength="1" size="2" ngControl="coordinateX" name="coordinateX">
     </label>
-    <span *ngIf="form.controls.coordinateX.errors?.required">Campo obligatorio</span>
-    <span *ngIf="form.controls.coordinateX.errors?.pattern">Solo letras</span>
+    <span *ngIf="coordinatesForm.controls.coordinateX.errors?.required">Campo obligatorio</span>
+    <span *ngIf="coordinatesForm.controls.coordinateX.errors?.pattern">Solo letras [A-{{upperCaseMax}}]</span>
   </div>
 
   <div>
@@ -21,12 +21,12 @@
       Y:
       <input type="number" maxlength="2" size="2" ngControl="coordinateY" name="coordinateY">
     </label>
-    <span *ngIf="form.controls.coordinateY.errors?.required">Campo obligatorio</span>
-    <span *ngIf="form.controls.coordinateY.errors?.pattern">Solo letras</span>
+    <span *ngIf="coordinatesForm.controls.coordinateY.errors?.required">Campo obligatorio</span>
+    <span *ngIf="coordinatesForm.controls.coordinateY.errors?.validateMaxInteger">Solo números [0-{{boardSize}}]</span>
   </div>
 
-  <button (click)="announce(form.value.coordinateX, form.value.coordinateY, units, orientation)">
-    Colocar en ({{form.value.coordinateX}}, {{form.value.coordinateY}})
+  <button [disabled]="!coordinatesForm.valid" (click)="announce(coordinatesForm.value.coordinateX, coordinatesForm.value.coordinateY, units, orientation)">
+    Colocar en ({{coordinatesForm.value.coordinateX}}, {{coordinatesForm.value.coordinateY}})
   </button>
 </form>
 
