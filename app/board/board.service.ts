@@ -105,7 +105,9 @@ export class BoardService {
   addPlayerShip(boardCells, newShip) {
     let {x, y, units, orientation} = newShip,
         boardHasEnoughtSize: boolean = this.hasBoardEnoughtSize(newShip),
-        anyCellHasPreviousShip: boolean = false;
+        anyCellHasPreviousShip: boolean = false,
+        isSuccess: boolean = false,
+        msg: string;
 
     if (boardHasEnoughtSize) {
       anyCellHasPreviousShip = this.checkIfAnyCellsHasShip(boardCells, newShip);
@@ -113,13 +115,17 @@ export class BoardService {
 
     if (!anyCellHasPreviousShip && boardHasEnoughtSize) {
       this.insertShipOnBoard(boardCells, newShip);
+      isSuccess = true;
+      msg = 'Barco colocado';
     } else {
       if(anyCellHasPreviousShip) {
-        console.log('Ya hay un barco en estas celdas');
+        msg = 'Ya hay un barco en estas celdas';
       } else {
-        console.log('Espacio insuficiente');
+        msg = 'Espacio en tablero insuficiente';
       }
     }
+
+    return {isSuccess, msg};
   }
 
 

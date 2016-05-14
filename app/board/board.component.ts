@@ -1,10 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+
 import { MissionService } from '../shared/mission.service';
 import { Board } from '../board/board';
 import { BoardService } from '../board/board.service';
 import { CellComponent } from '../cell/cell.component';
-import { Subscription }   from 'rxjs/Subscription';
-
+import { PHASE } from '../modes/phase';
 
 @Component({
   selector: 'bs-board',
@@ -16,7 +17,6 @@ import { Subscription }   from 'rxjs/Subscription';
 })
 
 export class BoardComponent implements OnInit {
-  @Output() onAddShip = new EventEmitter<number>();
   @Output() turnsChange = new EventEmitter<number>();
   board: Board;
   phase;
@@ -28,17 +28,12 @@ export class BoardComponent implements OnInit {
   constructor(private boardService: BoardService, private missionService: MissionService) {
     this.subscription = missionService.addShipAnnounced$.subscribe(
       (newShip) => {
-        if (!this.isIa) {
-          console.log(newShip.x)
-          console.log(newShip.y)
-          this.boardService.addPlayerShip(this.board.cells, newShip);
+        if (this.phase === PHASE.main && !this.isIa) {
+          let result = this.boardService.addPlayerShip(this.board.cells, newShip);
+          this.missionService.confirmAddShip(result);
+          console.log(`addShipAnnounced desde board`)
         }
-        console.log(`addShipAnnounced desde board`)
     })
-  }
-  confirm() {
-    console.log('confirm()')
-    this.missionService.confirmAddShip('barco');
   }
 
   ngOnInit() {
@@ -55,17 +50,14 @@ export class BoardComponent implements OnInit {
   }
 
   selectCell(cell) {
-    if (this.phase === 'mlklkain') {
+    if (this.phase === PHASE.main) {
       console.log('main')
       // this.boardService.placeShipOnRandomPosition(this.board.cells, 2);
-    } else {
+    } else if (this.phase === PHASE.battle){
       // this.turns++;
       // this.turnsChange.emit(this.turns);
       this.boardService.shoot(cell);
     }
   }
 
-  // onAddShip(ev) {
-  //   console.log(ev);
-  // }
 }

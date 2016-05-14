@@ -21,15 +21,30 @@ export class OnePlayerComponent implements OnInit {
   turns: number = 0;
   orientation: string = ORIENTATION.vertical;
   phase: string = PHASE.main;
-  shipToPlace: Array<number> = [5, 4, 3, 2];
-  //
+  shipsUnitsToPlace: Array<number> = [5, 4, 3, 2];
+  message: string;
+
   constructor(private missionService: MissionService, private formBuilder: FormBuilder) {
     missionService.addShipConfirmed$.subscribe(
-      ship => {
-        console.log(`Esta es la confirmacion desde one-player ${ship}`)
+      data => {
+        console.log(`Esta es la confirmacion desde one-player ${data.isSuccess}`)
+        this.analizeAddShipConfirmed(data);
       })
   }
 
+  analizeAddShipConfirmed (data) {
+    let {isSuccess, msg} = data;
+
+    if (isSuccess && this.shipsUnitsToPlace.length) {
+      this.shipsUnitsToPlace.shift();
+    }
+
+    if (!this.shipsUnitsToPlace.length) {
+      this.phase = PHASE.battle;
+    }
+
+    this.message = data.msg;
+  }
 
   generateXCoordinatesPattern (range: number) {
     let initPattern = '^[aA-',
@@ -72,10 +87,6 @@ export class OnePlayerComponent implements OnInit {
 
   addTurn() {
     this.turns++;
-  }
-
-  onAddShip() {
-    console.log('probando');
   }
 
   changeOrientation() {

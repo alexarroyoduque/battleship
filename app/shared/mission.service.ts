@@ -6,7 +6,7 @@ export class MissionService {
   //https://angular.io/docs/ts/latest/cookbook/component-communication.html#!#bidirectional-service
   // Observable string sources
   private addShipAnnouncedSource = new Subject<any>();
-  private addShipConfirmedSource = new Subject<string>();
+  private addShipConfirmedSource = new Subject<any>();
   // Observable string streams
   addShipAnnounced$ = this.addShipAnnouncedSource.asObservable();
   addShipConfirmed$ = this.addShipConfirmedSource.asObservable();
@@ -14,7 +14,7 @@ export class MissionService {
   announceAddShip(newShip) {
     this.addShipAnnouncedSource.next(newShip)
   }
-  confirmAddShip(ship: string) {
-    this.addShipConfirmedSource.next(ship);
+  confirmAddShip(result) {
+    this.addShipConfirmedSource.next(result);
   }
 }
