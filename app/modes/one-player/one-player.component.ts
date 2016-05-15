@@ -37,6 +37,9 @@ export class OnePlayerComponent implements OnInit {
 
     if (isSuccess && this.shipsUnitsToPlace.length) {
       this.shipsUnitsToPlace.shift();
+
+      (<Control>this.coordinatesForm.controls['coordinateX']).updateValue('');
+      (<Control>this.coordinatesForm.controls['coordinateY']).updateValue('');
     }
 
     if (!this.shipsUnitsToPlace.length) {
@@ -72,13 +75,11 @@ export class OnePlayerComponent implements OnInit {
     });
 
     this.coordinatesForm.valueChanges.subscribe(data => {
-      console.log(this.coordinatesForm)
       data.coordinateX = data.coordinateX.toUpperCase();
     });
   }
 
   announce(x, y, units, orientation) {
-    console.log('announce()')
     let xParsed = x.charCodeAt(0) - 65,
         yParsed = parseInt(y);
 

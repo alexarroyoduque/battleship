@@ -1,39 +1,41 @@
-<h1>Component one</h1>
 <p>Current phase: {{phase}}</p>
 <p>Turnos: {{turns}}</p>
-<h2>Board - one</h2>
+<h2>Board - player</h2>
+<div *ngIf="phase === 'main'">
+  <p>Orientation selected: {{orientation}}</p>
+  <button (click)="changeOrientation()">Change orientation</button>
+  <p>Units: {{shipsUnitsToPlace[0]}}</p>
 
-<p>Orientation selected: {{orientation}}</p>
-<button (click)="changeOrientation()">Change orientation</button>
-<p>Units: {{shipsUnitsToPlace[0]}}</p>
+  <form novalidate [ngFormModel]="coordinatesForm">
+    <div>
+      <label>
+        X:
+        <input type="text" maxlength="1" size="2" ngControl="coordinateX" name="coordinateX">
+      </label>
+      <span *ngIf="coordinatesForm.controls.coordinateX.errors?.required">Campo obligatorio</span>
+      <span *ngIf="coordinatesForm.controls.coordinateX.errors?.pattern">Solo letras [A-{{upperCaseMax}}]</span>
+    </div>
 
-<form novalidate [ngFormModel]="coordinatesForm">
-  <div>
-    <label>
-      X:
-      <input type="text" maxlength="1" size="2" ngControl="coordinateX" name="coordinateX">
-    </label>
-    <span *ngIf="coordinatesForm.controls.coordinateX.errors?.required">Campo obligatorio</span>
-    <span *ngIf="coordinatesForm.controls.coordinateX.errors?.pattern">Solo letras [A-{{upperCaseMax}}]</span>
-  </div>
+    <div>
+      <label>
+        Y:
+        <input type="number" maxlength="2" size="2" ngControl="coordinateY" name="coordinateY">
+      </label>
+      <span *ngIf="coordinatesForm.controls.coordinateY.errors?.required">Campo obligatorio</span>
+      <span *ngIf="coordinatesForm.controls.coordinateY.errors?.validateMaxInteger">Solo números [0-{{boardSize}}]</span>
+    </div>
 
-  <div>
-    <label>
-      Y:
-      <input type="number" maxlength="2" size="2" ngControl="coordinateY" name="coordinateY">
-    </label>
-    <span *ngIf="coordinatesForm.controls.coordinateY.errors?.required">Campo obligatorio</span>
-    <span *ngIf="coordinatesForm.controls.coordinateY.errors?.validateMaxInteger">Solo números [0-{{boardSize}}]</span>
-  </div>
-
-  <button [disabled]="!coordinatesForm.valid" (click)="announce(coordinatesForm.value.coordinateX, coordinatesForm.value.coordinateY, shipsUnitsToPlace[0], orientation)">
-    Colocar en ({{coordinatesForm.value.coordinateX}}, {{coordinatesForm.value.coordinateY}})
-  </button>
-  <p>{{message}}</p>
-</form>
-
+    <button type="button" [disabled]="!coordinatesForm.valid" (click)="announce(coordinatesForm.value.coordinateX, coordinatesForm.value.coordinateY, shipsUnitsToPlace[0], orientation)">
+      Colocar en ({{coordinatesForm.value.coordinateX}}, {{coordinatesForm.value.coordinateY}})
+    </button>
+    <p>{{message}}</p>
+  </form>
+</div>
 
 <bs-board [size]="[[boardSize]]" [(turns)]="turns" [(phase)]="phase"></bs-board>
-<h2>Board - two</h2>
-<bs-ia></bs-ia>
-<bs-board [size]="[[boardSize]]" [(turns)]="turns" [(phase)]="phase" [isIa]="true"></bs-board>
+
+<div *ngIf="phase !== 'main'">
+  <h2>Board - IA</h2>
+  <bs-ia></bs-ia>
+  <bs-board [size]="[[boardSize]]" [(turns)]="turns" [(phase)]="phase" [isIa]="true"></bs-board>
+</div>
