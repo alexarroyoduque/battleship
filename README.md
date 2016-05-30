@@ -9,6 +9,21 @@ Mi primer experimento con [Angular 2](https://angular.io/).
 Próximamente...
 
 
+## Development
+
+### Install dependencies
+
+```sh
+$ npm install
+```
+
+### Run project
+
+```sh
+$ npm start
+```
+
+
 ## Author
 > Alejandro Arroyo Duque
 
