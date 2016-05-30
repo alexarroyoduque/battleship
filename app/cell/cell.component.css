@@ -19,6 +19,6 @@
   background-color: #FF5722;
 }
 
-.hasShip {
+.hasShip:not(.isIa) {
   background-color: #9C27B0;
 }
