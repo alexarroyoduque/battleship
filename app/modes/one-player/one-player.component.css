@@ -1,3 +1,17 @@
 input {
   text-transform: uppercase;
 }
+
+header {
+  order: 1;
+  min-width: 100%;
+  min-height: 10%;
+  background-color: #9BC7FF;
+}
+
+.content {
+  order: 2;
+  min-width: 100%;
+  min-height: 90%;
+  background-color: yellow;
+}
