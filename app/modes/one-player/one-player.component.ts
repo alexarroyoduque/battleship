@@ -15,11 +15,12 @@ import { PHASE } from '../phase';
   styleUrls: ['app/modes/one-player/one-player.component.css']
 })
 export class OnePlayerComponent implements OnInit {
+  cellsStack: Array<Object> = [];
   boardSize: number = 10;
   upperCaseMax: string;
   coordinatesForm: ControlGroup;
-  turns: number = 0;
-  orientation: string = ORIENTATION.vertical;
+  turns: number = 1;
+  orientation: string = ORIENTATION.horizontal;
   phase: string = PHASE.main;
   shipsUnitsToPlace: Array<number> = [5, 4, 3, 2];
   message: string;
@@ -77,6 +78,8 @@ export class OnePlayerComponent implements OnInit {
     this.coordinatesForm.valueChanges.subscribe(data => {
       data.coordinateX = data.coordinateX.toUpperCase();
     });
+
+    this.generateCellsStack(this.boardSize);
   }
 
   announce(x, y, units, orientation) {
@@ -90,6 +93,16 @@ export class OnePlayerComponent implements OnInit {
     this.turns++;
   }
 
+  isIaTurn(turns) {
+    return !!(turns % 2);
+  }
+
+  iaShoots() {
+    console.log('iaShoots');
+    this.addTurn();
+    this.missionService.announceShoot(this.cellsStack.shift());
+  }
+
   changeOrientation() {
     if (this.orientation === ORIENTATION.vertical) {
       this.orientation = ORIENTATION.horizontal;
@@ -97,6 +110,26 @@ export class OnePlayerComponent implements OnInit {
       this.orientation = ORIENTATION.vertical;
     }
   }
+
+  generateCellsStack(size) {
+    for(let i = 0; i< size; i++) {
+      for(let j = 0; j< size; j++) {
+        this.cellsStack.push({x: i, y: j});
+      }
+    }
+
+    shuffle(this.cellsStack);
+  }
+}
+
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length; i; i -= 1) {
+        j = Math.floor(Math.random() * i);
+        x = a[i - 1];
+        a[i - 1] = a[j];
+        a[j] = x;
+    }
 }
 
 function validateMaxInteger(c: Control) {

@@ -19,7 +19,7 @@ export class BoardService {
         board[i][j] = {
           status: 'empty',
           hasShip: false,
-          coordinates: {x: String.fromCharCode(65 + i), y: j}
+          coordinates: {x: i, y: j}
         };
       }
     }

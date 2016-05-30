@@ -18,6 +18,7 @@ import { PHASE } from '../modes/phase';
 
 export class BoardComponent implements OnInit {
   @Output() turnsChange = new EventEmitter<number>();
+  cellsStack = [];
   board: Board;
   phase;
   size;
@@ -25,6 +26,7 @@ export class BoardComponent implements OnInit {
   turns;
 
   subscription:Subscription;
+  subscriptionShoot:Subscription;
   constructor(private boardService: BoardService, private missionService: MissionService) {
     this.subscription = missionService.addShipAnnounced$.subscribe(
       (newShip) => {
@@ -33,7 +35,14 @@ export class BoardComponent implements OnInit {
           this.missionService.confirmAddShip(result);
           console.log(`addShipAnnounced desde board`)
         }
-    })
+    });
+
+    this.subscriptionShoot = missionService.shootAnnounced$.subscribe(
+      (coordinates) => {
+        if (this.phase === PHASE.battle && !this.isIa) {
+          this.boardService.shoot(this.getCellByCoordinates(coordinates));
+        }
+    });
   }
 
   ngOnInit() {
@@ -49,15 +58,29 @@ export class BoardComponent implements OnInit {
     }
   }
 
+  getCellByCoordinates(coordinates) {
+    let {x, y} = coordinates;
+
+    return this.board.cells[x][y];
+  }
+
+  isIaTurn(turns) {
+    return !!(turns % 2);
+  }
+
   selectCell(cell) {
     if (this.phase === PHASE.main) {
       console.log('main')
       // this.boardService.placeShipOnRandomPosition(this.board.cells, 2);
-    } else if (this.phase === PHASE.battle){
-      // this.turns++;
-      // this.turnsChange.emit(this.turns);
+    } else if (this.phase === PHASE.battle && this.isIa && this.isIaTurn(this.turns)){
+      this.turns++;
+      this.turnsChange.emit(this.turns);
       this.boardService.shoot(cell);
     }
+  }
+
+  getLetterCode(code) {
+    return String.fromCharCode(65 + code);
   }
 
 }

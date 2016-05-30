@@ -17,4 +17,16 @@ export class MissionService {
   confirmAddShip(result) {
     this.addShipConfirmedSource.next(result);
   }
+
+
+  // Observable string sources
+  private shootAnnouncedSource = new Subject<any>();
+  // Observable string streams
+  shootAnnounced$ = this.shootAnnouncedSource.asObservable();
+  // Service message commands
+  announceShoot(coordinates) {
+    this.shootAnnouncedSource.next(coordinates)
+  }
+
+
 }

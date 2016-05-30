@@ -15,7 +15,7 @@
   background-color: #42A5F5;
 }
 
-.hit {
+.hasShip.hit, .hit {
   background-color: #FF5722;
 }
 

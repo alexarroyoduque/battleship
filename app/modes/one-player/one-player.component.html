@@ -35,6 +35,7 @@
 <bs-board [size]="[[boardSize]]" [(turns)]="turns" [(phase)]="phase"></bs-board>
 
 <div *ngIf="phase !== 'main'">
+  <button type="button" [disabled]="isIaTurn(turns)" (click)="iaShoots()">Dispara IA</button>
   <h2>Board - IA</h2>
   <bs-ia></bs-ia>
   <bs-board [size]="[[boardSize]]" [(turns)]="turns" [(phase)]="phase" [isIa]="true"></bs-board>
