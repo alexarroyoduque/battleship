@@ -16,7 +16,7 @@ $ npm install
 ```
 
 ```sh
-$ npm postinstall
+$ npm run postinstall
 ```
 
 ### Run project
