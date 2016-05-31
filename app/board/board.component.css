@@ -30,5 +30,5 @@
 }
 
 .coordinates.y {
-  overflow: auto;
+  overflow: hidden;
 }
