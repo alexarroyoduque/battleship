@@ -1,52 +1,293 @@
+* {
+  font-family: 'Kaushan Script', cursive;
+}
+
+.menu {
+  margin: 0;
+  min-height: 100%;
+  /*background-color: #ccbf4b;*/
+  background-image:
+  radial-gradient(circle at 100% 150%, #f7f1ba 24%, #f5e877 25%, #f5e877 28%, #f7f1ba 29%, #f7f1ba 36%, #f5e877 36%, #f5e877 40%, transparent 40%, transparent),
+  radial-gradient(circle at 0    150%, #f7f1ba 24%, #f5e877 25%, #f5e877 28%, #f7f1ba 29%, #f7f1ba 36%, #f5e877 36%, #f5e877 40%, transparent 40%, transparent),
+  radial-gradient(circle at 50%  100%, #f5e877 10%, #f7f1ba 11%, #f7f1ba 23%, #f5e877 24%, #f5e877 30%, #f7f1ba 31%, #f7f1ba 43%, #f5e877 44%, #f5e877 50%, #f7f1ba 51%, #f7f1ba 63%, #f5e877 64%, #f5e877 71%, transparent 71%, transparent),
+  radial-gradient(circle at 100% 50%, #f5e877 5%, #f7f1ba 6%, #f7f1ba 15%, #f5e877 16%, #f5e877 20%, #f7f1ba 21%, #f7f1ba 30%, #f5e877 31%, #f5e877 35%, #f7f1ba 36%, #f7f1ba 45%, #f5e877 46%, #f5e877 49%, transparent 50%, transparent),
+  radial-gradient(circle at 0    50%, #f5e877 5%, #f7f1ba 6%, #f7f1ba 15%, #f5e877 16%, #f5e877 20%, #f7f1ba 21%, #f7f1ba 30%, #f5e877 31%, #f5e877 35%, #f7f1ba 36%, #f7f1ba 45%, #f5e877 46%, #f5e877 49%, transparent 50%, transparent);
+  background-size:100px 50px;
+}
+
 header {
   order: 1;
-  min-width: 100%;
-  min-height: 20%;
-  background-color: #9BC7FF;
-  text-align: center;
 }
 
-header h1 {
-  margin: 0;
-}
-
-dl {
-  margin: 0;
-}
-
-.about {
-  order: 2;
-  min-width: 100%;
-  min-height: 40%;
-  background-color: brown;
+header, footer {
+  min-height: 10%;
   display: flex;
   flex-flow: row;
-  justify-content:  center;
+  justify-content: center;
+  color: #ff007d;
+  font-size: 20px;
+}
+
+header a, footer a {
+  color: #ff007d;
+  text-decoration: none;
+}
+
+header a:hover, footer a:hover {
+  text-decoration: underline;
+}
+
+header div:first-child, footer div:first-child{
+  order: 1;
+  /*background: red;*/
+  min-width: 30%;
+}
+
+header div:nth-child(2), footer div:nth-child(2) {
+  order: 2;
+  /*background: #f7f1ba;*/
+  min-width: 70%;
+  text-align: right;
+}
+
+header .corner, footer .corner {
+  display: inline-block;
+  padding: 10px;
+}
+
+footer span:first-child {
+  color: orange
+}
+
+.main {
+  order: 2;
+  min-width: 100%;
+  min-height: 80%;
+  /*background-color: gray;*/
+
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
   align-items: center;
   align-content: center;
 }
 
-.about .item {
-  width: 100px;
-  height: 100px;
-  margin: 0 10px 0 10px;
+.splash {
+  background-color: #69c9f9;
+  min-height: 65%;
+  min-width: 60%;
+  border-radius: 50%;
+  border: 8px solid #317394;
+
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-end;
+  align-items: center;
+
   text-align: center;
 }
 
-.item img {
-  width: 100px;
-  height: 100px;
-  border-radius: 10px;
+.bubbles {
+  position: relative;
 }
 
-.item .text {
-  display: inline-block;
-  padding: 0 0 10px;
+.bubbles-base {
+  position: absolute;
+  transform: rotate(230deg);
+  transform-origin: 30% 0%;
+  background-color: blue;
+  border-radius: 50%;
+  border: 2px white solid;
 }
 
-.content {
-  order: 2;
-  min-width: 100%;
-  min-height: 60%;
-  background-color: yellow;
+.bubble-1 {
+  top: -180px;
+  left: 30px;
+  width: 50px;
+  height: 50px;
+  animation: bubble-1-animation 2.6s infinite cubic-bezier(0.4, 0, 1, 1);
+}
+
+.bubble-2 {
+  top: -170px;
+  left: 20px;
+  width: 40px;
+  height: 40px;
+  animation: bubble-2-animation 4s infinite cubic-bezier(0.4, 0, 1, 1);
+}
+
+@-webkit-keyframes bubble-1-animation {
+  0% {
+    opacity: 0;
+    width: 0px;
+    height: 0px;
+  }
+  3% {
+    width: 10px;
+    height: 10px;
+  }
+  6% {
+    width: 50px;
+    height: 50px;
+  }
+  8% {
+    width: 60px;
+    height: 60px;
+  }
+  10% {
+    opacity: .2;
+    width: 50px;
+    height: 50px;
+  }
+  40% {
+    left: 25px;
+  }
+  95% {
+    width: 60px;
+    height: 60px;
+    opacity: .2;
+  }
+  97% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+    top: -280px;
+    left: 35px;
+  }
+}
+
+
+@-webkit-keyframes bubble-2-animation {
+  0% {
+    opacity: 0;
+    width: 0px;
+    height: 0px;
+  }
+  3% {
+    width: 5px;
+    height: 5px;
+  }
+  6% {
+    width: 40px;
+    height: 40px;
+  }
+  8% {
+    width: 50px;
+    height: 50px;
+  }
+  10% {
+    opacity: .2;
+    width: 40px;
+    height: 40px;
+  }
+  40% {
+    left: 35px;
+  }
+  95% {
+    width: 50px;
+    height: 50px;
+    opacity: .2;
+  }
+  97% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+    top: -260px;
+    left: 15px;
+  }
+}
+
+.splash .battleship {
+  position: relative;
+  animation: battleship-animation 0.6s infinite ease;
+  animation-direction: alternate;
+}
+
+@-webkit-keyframes battleship-animation {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+.battleship h1 {
+  margin: 0;
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  z-index: 9;
+  font-size: 40px;
+  color: #1c563f;
+  transition: transform ease .3s;
+}
+
+.battleship h1, a{
+  color: #1c563f;
+  text-decoration: none;
+}
+
+.battleship h1:hover {
+  animation: battleship-hover-animation .2s infinite ease;
+  animation-direction: alternate-reverse;
+}
+
+@-webkit-keyframes battleship-hover-animation {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+
+#chevron:before, #chevron:after {
+  background-color: #58efb3;
+  /*border: 2px solid #1c563f;*/
+}
+
+#chevron {
+  position: relative;
+  text-align: center;
+  padding: 12px;
+  margin-bottom: 6px;
+  height: 60px;
+  width: 200px;
+}
+
+#chevron:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 51%;
+  -webkit-transform: skew(0deg, 6deg);
+  -moz-transform: skew(0deg, 6deg);
+  -ms-transform: skew(0deg, 6deg);
+  -o-transform: skew(0deg, 6deg);
+  transform: skew(0deg, 6deg);
+}
+
+#chevron:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 50%;
+  -webkit-transform: skew(0deg, -6deg);
+  -moz-transform: skew(0deg, -6deg);
+  -ms-transform: skew(0deg, -6deg);
+  -o-transform: skew(0deg, -6deg);
+  transform: skew(0deg, -6deg);
+  border-left: 0;
+}​
+
+footer {
+  order: 3;
 }

@@ -1,23 +1,43 @@
-<header>
-  <h1>Battleship</h1>
-  <span>by AlexArroyoDuque</span>
-</header>
+<div class="menu">
+  <header>
+    <div>
+      <span class="corner">
+        <a href="https://angular.io/" target="_blank" title="go to Angular2">Angular2</a>
+      </span>
+    </div>
+    <div>
+      <span class="corner">
+        <a href="https://github.com/alexarroyoduque/battleship" target="_blank" title="go to Code">Code</a>
+      </span>
+    </div>
+  </header>
 
-<section class="about">
-  <div class="item">
-    <span class="text">Source code</span>
-    <a href="https://github.com/alexarroyoduque/battleship" target="_blank" title="github">
-      <img src="app/menu/images/github.png" alt="source code"/>
-    </a>
-  </div>
-  <div class="item">
-    <span class="text">Technology</span>
-    <a href="https://angular.io/" target="_blank" title="angular">
-      <img src="app/menu/images/angular.png" alt="angular"/>
-    </a>
-  </div>
-</section>
+  <section class="main">
+    <div class="splash">
+      <div class="bubbles">
+        <div class="bubbles-base bubble-1"></div>
+        <div class="bubbles-base bubble-2"></div>
+      </div>
+      <div class="battleship">
+        <h1><a [routerLink]="['OnePlayer']">Battleship</a></h1>
+        <div id="chevron"></div>
+      </div>
+    </div>
+  </section>
 
-<section class="content">
-    <a [routerLink]="['OnePlayer']">Un jugador</a>
-</section>
+  <!-- <section class="content">
+  <a [routerLink]="['OnePlayer']">Un jugador</a>
+</section> -->
+
+<footer>
+  <div>
+    <span class="corner">2016</span>
+  </div>
+  <div>
+    <span class="corner">
+      <a href="http://alexarroyoduque.github.io" target="_blank" title="go to AlexArroyoDuque">by AlexArroyoDuque</a>
+    </span>
+  </div>
+</footer>
+
+</div>
