@@ -2,11 +2,9 @@
 
 (English)
 My first experiment with [Angular 2](https://angular.io/).
-Cooming soon...
 
 (Español)
 Mi primer experimento con [Angular 2](https://angular.io/).
-Próximamente...
 
 
 ## Development
@@ -15,6 +13,10 @@ Próximamente...
 
 ```sh
 $ npm install
+```
+
+```sh
+$ npm postinstall
 ```
 
 ### Run project
