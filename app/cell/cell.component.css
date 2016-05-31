@@ -13,12 +13,36 @@
 
 .water {
   background-color: #42A5F5;
+  animation: water-animation 1.3s ease;
 }
 
 .hasShip.hit, .hit {
   background-color: #FF5722;
+  animation: hit-animation 1.3s ease;
 }
 
 .hasShip:not(.isIa) {
-  background-color: #9C27B0;
+  background-color: #58efb3;
+  animation: hasShip-animation 1.3s ease;
+}
+
+@-webkit-keyframes hasShip-animation {
+  0% {background-color: #546E7A;}
+  30% {background-color: #58efb3;}
+  60% {background-color: white;}
+  100% {background-color: #58efb3;}
+}
+
+@-webkit-keyframes water-animation {
+  0% {background-color: #546E7A;}
+  30% {background-color: #42A5F5;}
+  60% {background-color: white;}
+  100% {background-color: #42A5F5;}
+}
+
+@-webkit-keyframes hit-animation {
+  0% {background-color: #546E7A;}
+  30% {background-color: #FF5722;}
+  60% {background-color: white;}
+  100% {background-color: #FF5722;}
 }

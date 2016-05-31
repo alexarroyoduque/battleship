@@ -5,14 +5,6 @@
 .menu {
   margin: 0;
   min-height: 100%;
-  /*background-color: #ccbf4b;*/
-  background-image:
-  radial-gradient(circle at 100% 150%, #f7f1ba 24%, #f5e877 25%, #f5e877 28%, #f7f1ba 29%, #f7f1ba 36%, #f5e877 36%, #f5e877 40%, transparent 40%, transparent),
-  radial-gradient(circle at 0    150%, #f7f1ba 24%, #f5e877 25%, #f5e877 28%, #f7f1ba 29%, #f7f1ba 36%, #f5e877 36%, #f5e877 40%, transparent 40%, transparent),
-  radial-gradient(circle at 50%  100%, #f5e877 10%, #f7f1ba 11%, #f7f1ba 23%, #f5e877 24%, #f5e877 30%, #f7f1ba 31%, #f7f1ba 43%, #f5e877 44%, #f5e877 50%, #f7f1ba 51%, #f7f1ba 63%, #f5e877 64%, #f5e877 71%, transparent 71%, transparent),
-  radial-gradient(circle at 100% 50%, #f5e877 5%, #f7f1ba 6%, #f7f1ba 15%, #f5e877 16%, #f5e877 20%, #f7f1ba 21%, #f7f1ba 30%, #f5e877 31%, #f5e877 35%, #f7f1ba 36%, #f7f1ba 45%, #f5e877 46%, #f5e877 49%, transparent 50%, transparent),
-  radial-gradient(circle at 0    50%, #f5e877 5%, #f7f1ba 6%, #f7f1ba 15%, #f5e877 16%, #f5e877 20%, #f7f1ba 21%, #f7f1ba 30%, #f5e877 31%, #f5e877 35%, #f7f1ba 36%, #f7f1ba 45%, #f5e877 46%, #f5e877 49%, transparent 50%, transparent);
-  background-size:100px 50px;
 }
 
 header {

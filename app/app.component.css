@@ -1,7 +1,16 @@
 .general {
   display: flex;
   flex-flow: column;
-  min-height: 100vh;
+  height: 100vh;
+  max-width: 420px;
+  max-height: 780px;
   width: 100%;
   background-color: gray;
+  margin: 0 auto;
+}
+
+@media (min-height: 780px) {
+  .general {
+    height: 568px;
+  }
 }

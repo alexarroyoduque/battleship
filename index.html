@@ -5,7 +5,7 @@
   <title>battleship</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Slabo+27px|Kaushan+Script' rel='stylesheet' type='text/css'>
   <!-- <link rel="stylesheet" href="styles.css"> -->
 
   <!-- 1. Load libraries -->
@@ -24,7 +24,19 @@
 </head>
 
   <!-- 3. Display the application -->
-  <body style="margin: 0;">
+  <!-- <body style="margin: 0 auto;max-width: 320px;max-height: 780px;"> -->
+  <style media="screen">
+    .carbon-fibre {
+      background:
+      radial-gradient(black 15%, transparent 16%) 0 0,
+      radial-gradient(black 15%, transparent 16%) 8px 8px,
+      radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+      radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+      background-color:#282828;
+      background-size:16px 16px;
+    }
+  </style>
+  <body class="carbon-fibre" style="margin: 0 auto">
     <bs-app>Loading...</bs-app>
   </body>
 </html>

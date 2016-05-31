@@ -116,12 +116,12 @@ export class BoardService {
     if (!anyCellHasPreviousShip && boardHasEnoughtSize) {
       this.insertShipOnBoard(boardCells, newShip);
       isSuccess = true;
-      msg = 'Barco colocado';
+      msg = 'Ship placed on your board';
     } else {
       if(anyCellHasPreviousShip) {
-        msg = 'Ya hay un barco en estas celdas';
+        msg = 'There is a ship in this cells';
       } else {
-        msg = 'Espacio en tablero insuficiente';
+        msg = 'Insufficient board size';
       }
     }
 

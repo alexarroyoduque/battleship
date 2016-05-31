@@ -3,16 +3,15 @@ import { FORM_DIRECTIVES, FORM_BINDINGS, ControlGroup, FormBuilder, Validators, 
 
 import { MissionService } from '../../shared/mission.service';
 import { BoardComponent } from '../../board/board.component';
-import { IaComponent } from '../../ia/ia.component';
 import { ORIENTATION } from '../../board/orientation';
 import { PHASE } from '../phase';
 
 @Component({
   selector: 'bs-one-player',
-  directives: [FORM_DIRECTIVES, BoardComponent, IaComponent],
+  directives: [FORM_DIRECTIVES, BoardComponent],
   providers: [MissionService],
   templateUrl: 'app/modes/one-player/one-player.component.html',
-  styleUrls: ['app/modes/one-player/one-player.component.css']
+  styleUrls: ['app/shared/base.css', 'app/modes/one-player/one-player.component.css']
 })
 export class OnePlayerComponent implements OnInit {
   cellsStack: Array<Object> = [];

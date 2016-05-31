@@ -1,47 +1,55 @@
-<header>
-  Current phase: {{phase}}
-</header>
+<div class="mode base-background">
+  <header>
+    <span *ngIf="phase === 'main'">Place your ships</span>
+    <span *ngIf="phase === 'battle' && isIaTurn(turns)">Attack on IA board</span>
+    <span *ngIf="phase === 'battle' && !isIaTurn(turns)">IA attacks</span>
+  </header>
 
-<div class="content">
-  <p>Turnos: {{turns}}</p>
-  <h2>Board - player</h2>
-  <div *ngIf="phase === 'main'">
-    <p>Orientation selected: {{orientation}}</p>
-    <button (click)="changeOrientation()">Change orientation</button>
-    <p>Units: {{shipsUnitsToPlace[0]}}</p>
+  <div class="content">
+    <!-- <p>Turnos: {{turns}}</p> -->
+    <div class="player-form" *ngIf="phase === 'main'">
+      <p>Placing ship with {{shipsUnitsToPlace[0]}} units</p>
+      <p>
+        {{orientation}}
+        <button class="orientation" (click)="changeOrientation()">Change orientation</button>
+      </p>
 
-    <form novalidate [ngFormModel]="coordinatesForm">
-      <div>
-        <label>
-          X:
-          <input type="text" maxlength="1" size="2" ngControl="coordinateX" name="coordinateX">
-        </label>
-        <span *ngIf="coordinatesForm.controls.coordinateX.errors?.required">Campo obligatorio</span>
-        <span *ngIf="coordinatesForm.controls.coordinateX.errors?.pattern">Solo letras [A-{{upperCaseMax}}]</span>
+      <form novalidate [ngFormModel]="coordinatesForm">
+        <div>
+          <label>
+            X:
+            <input type="text" maxlength="1" size="2" ngControl="coordinateX" name="coordinateX">
+          </label>
+          <span class="message" *ngIf="coordinatesForm.controls.coordinateX.errors?.required">Required</span>
+          <span class="message" *ngIf="coordinatesForm.controls.coordinateX.errors?.pattern">Letters only [A-{{upperCaseMax}}]</span>
+        </div>
+
+        <div>
+          <label>
+            Y:
+            <input type="number" maxlength="2" size="2" ngControl="coordinateY" name="coordinateY">
+          </label>
+          <span class="message" *ngIf="coordinatesForm.controls.coordinateY.errors?.required">Required</span>
+          <span class="message" *ngIf="coordinatesForm.controls.coordinateY.errors?.validateMaxInteger">Numbers only [0-{{boardSize}}]</span>
+        </div>
+
+      </form>
+      <div class="form-actions">
+        <button type="button" [disabled]="!coordinatesForm.valid" (click)="announce(coordinatesForm.value.coordinateX, coordinatesForm.value.coordinateY, shipsUnitsToPlace[0], orientation)">
+          Place on ({{coordinatesForm.value.coordinateX}}, {{coordinatesForm.value.coordinateY}})
+        </button>
+        <p class="form-result">{{message}}</p>
       </div>
+    </div>
 
-      <div>
-        <label>
-          Y:
-          <input type="number" maxlength="2" size="2" ngControl="coordinateY" name="coordinateY">
-        </label>
-        <span *ngIf="coordinatesForm.controls.coordinateY.errors?.required">Campo obligatorio</span>
-        <span *ngIf="coordinatesForm.controls.coordinateY.errors?.validateMaxInteger">Solo números [0-{{boardSize}}]</span>
-      </div>
+    <h2>Player board</h2>
+    <bs-board [size]="[[boardSize]]" [(turns)]="turns" [(phase)]="phase"></bs-board>
 
-      <button type="button" [disabled]="!coordinatesForm.valid" (click)="announce(coordinatesForm.value.coordinateX, coordinatesForm.value.coordinateY, shipsUnitsToPlace[0], orientation)">
-        Colocar en ({{coordinatesForm.value.coordinateX}}, {{coordinatesForm.value.coordinateY}})
-      </button>
-      <p>{{message}}</p>
-    </form>
+    <h2 *ngIf="phase !== 'main'">IA board</h2>
+    <div *ngIf="phase !== 'main'">
+      <button type="button" [disabled]="isIaTurn(turns)" (click)="iaShoots()">Dispara IA</button>
+      <bs-board [size]="[[boardSize]]" [(turns)]="turns" [(phase)]="phase" [isIa]="true"></bs-board>
+    </div>
   </div>
 
-  <bs-board [size]="[[boardSize]]" [(turns)]="turns" [(phase)]="phase"></bs-board>
-
-  <div *ngIf="phase !== 'main'">
-    <button type="button" [disabled]="isIaTurn(turns)" (click)="iaShoots()">Dispara IA</button>
-    <h2>Board - IA</h2>
-    <bs-ia></bs-ia>
-    <bs-board [size]="[[boardSize]]" [(turns)]="turns" [(phase)]="phase" [isIa]="true"></bs-board>
-  </div>
 </div>
