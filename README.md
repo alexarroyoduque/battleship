@@ -1,10 +1,6 @@
 # Battleship - Hundir la flota
 
-(English)
-My first experiment with [Angular 2](https://angular.io/).
-
-(Español)
-Mi primer experimento con [Angular 2](https://angular.io/).
+My first experiment with [Angular 2](https://angular.io/) is a Battleship game.
 
 
 ## Development
