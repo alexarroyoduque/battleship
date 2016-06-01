@@ -47,7 +47,7 @@
 
     <h2 *ngIf="phase !== 'main'">IA board</h2>
     <div *ngIf="phase !== 'main'">
-      <button type="button" [disabled]="isIaTurn(turns)" (click)="iaShoots()">Attack IA!</button>
+      <!-- <button type="button" [disabled]="isIaTurn(turns)" (click)="iaShoots()">Attack IA!</button> -->
       <bs-board [size]="[[boardSize]]" [(turns)]="turns" [(phase)]="phase" [isIa]="true"></bs-board>
     </div>
   </div>

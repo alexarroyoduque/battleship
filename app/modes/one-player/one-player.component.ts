@@ -27,9 +27,23 @@ export class OnePlayerComponent implements OnInit {
   constructor(private missionService: MissionService, private formBuilder: FormBuilder) {
     missionService.addShipConfirmed$.subscribe(
       data => {
-        console.log(`Esta es la confirmacion desde one-player ${data.isSuccess}`)
+        console.log(`Esta es la confirmacion desde one-player ${data.isSuccess}`);
         this.analizeAddShipConfirmed(data);
-      })
+      }
+    )
+    missionService.playerTurnFinished$.subscribe(
+      isFinished => {
+        console.log(`Turno de jugador finalizado ${isFinished}`);
+        if(isFinished) {
+          console.log(`Turno de IA`);
+
+          setTimeout(()=> {
+            this.iaShoots();
+          }, 1500);
+        }
+
+      }
+    )
   }
 
   analizeAddShipConfirmed (data) {

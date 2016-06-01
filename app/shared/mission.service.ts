@@ -28,5 +28,14 @@ export class MissionService {
     this.shootAnnouncedSource.next(coordinates)
   }
 
+  // Observable string sources
+  private playerTurnFinishedSource = new Subject<boolean>();
+  // Observable string streams
+  playerTurnFinished$ = this.playerTurnFinishedSource.asObservable();
+  // Service message commands
+  finishedPlayerTurn(isFinished) {
+    this.playerTurnFinishedSource.next(isFinished);
+  }
+
 
 }

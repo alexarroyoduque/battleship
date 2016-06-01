@@ -72,10 +72,11 @@ export class BoardComponent implements OnInit {
     if (this.phase === PHASE.main) {
       console.log('main')
       // this.boardService.placeShipOnRandomPosition(this.board.cells, 2);
-    } else if (this.phase === PHASE.battle && this.isIa && this.isIaTurn(this.turns)){
+    } else if (this.phase === PHASE.battle && this.isIa && this.isIaTurn(this.turns) && cell.status === 'empty'){
       this.turns++;
       this.turnsChange.emit(this.turns);
       this.boardService.shoot(cell);
+      this.missionService.finishedPlayerTurn(true);
     }
   }
 

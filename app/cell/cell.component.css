@@ -7,6 +7,10 @@
   width: 20px;
 }
 
+.cell:hover {
+  background-color: white;
+}
+
 .empty {
   background-color: #546E7A;
 }
