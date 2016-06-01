@@ -1,5 +1,13 @@
-header, h2, bs-board {
+bs-board {
+  font-family: 'Slabo 27px', serif;
+}
+
+h2 {
   font-family: 'Kaushan Script', cursive;
+  opacity: 0;
+  animation: board-fade-in 1.3s ease;
+  animation-delay: .8s;
+  animation-fill-mode: forwards;
 }
 
 input {
@@ -8,6 +16,7 @@ input {
 }
 
 header {
+  font-family: 'Slabo 27px', serif;
   order: 1;
   min-width: 100%;
   min-height: 10%;
@@ -36,6 +45,11 @@ header {
   font-family: 'Slabo 27px', serif;
   padding: 10px;
   background-color: rgba(255, 255, 255, 0.4);
+
+  opacity: 0;
+  animation: board-fade-in 1s ease;
+  animation-delay: .1s;
+  animation-fill-mode: forwards;
 }
 
 button {

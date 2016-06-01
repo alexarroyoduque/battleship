@@ -51,6 +51,21 @@ footer span:first-child {
   color: orange
 }
 
+header span {
+  opacity: 0;
+  animation: board-fade-in .8s ease;
+  animation-delay: .3s;
+  animation-fill-mode: forwards;
+}
+
+footer span {
+  opacity: 0;
+  animation: board-fade-in .8s ease;
+  animation-delay: 1.2s;
+  animation-fill-mode: forwards;
+}
+
+
 .main {
   order: 2;
   min-width: 100%;
@@ -77,6 +92,11 @@ footer span:first-child {
   align-items: center;
 
   text-align: center;
+
+  opacity: 0;
+  animation: board-fade-in 1s ease;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
 }
 
 .bubbles {

@@ -13,7 +13,7 @@ import { PHASE } from '../modes/phase';
   directives: [CellComponent],
   providers: [BoardService],
   templateUrl: 'app/board/board.component.html',
-  styleUrls: ['app/board/board.component.css']
+  styleUrls: ['app/shared/base.css', 'app/board/board.component.css']
 })
 
 export class BoardComponent implements OnInit {

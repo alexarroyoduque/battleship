@@ -1,3 +1,10 @@
+.board {
+  opacity: 0;
+  animation: board-fade-in 1.3s ease;
+  animation-delay: .8s;
+  animation-fill-mode: forwards;
+}
+
 .throw {
   /*border: 1px solid black;*/
   /*padding: 2px;*/
@@ -13,7 +20,6 @@
 .board-cell {
   margin: 2px;
 }
-
 
 .coordinates {
   background-color: #1c563f;

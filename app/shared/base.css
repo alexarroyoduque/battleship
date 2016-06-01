@@ -7,3 +7,8 @@
   radial-gradient(circle at 0    50%, #f5e877 5%, #f7f1ba 6%, #f7f1ba 15%, #f5e877 16%, #f5e877 20%, #f7f1ba 21%, #f7f1ba 30%, #f5e877 31%, #f5e877 35%, #f7f1ba 36%, #f7f1ba 45%, #f5e877 46%, #f5e877 49%, transparent 50%, transparent);
   background-size:100px 50px;
 }
+
+@-webkit-keyframes board-fade-in {
+  0% {opacity: 0}
+  100% {opacity: 1}
+}

@@ -7,7 +7,7 @@
   width: 20px;
 }
 
-.cell:hover {
+.cell.isIa:hover:not(.water):not(.hit) {
   background-color: white;
 }
 
